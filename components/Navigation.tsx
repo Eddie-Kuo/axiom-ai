@@ -12,9 +12,9 @@ const Navigation = () => {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Features", path: "#features" },
-    { name: "How It Works", path: "#how-it-works" },
-    { name: "Pricing", path: "#pricing" },
+    { name: "Features", path: "/#features" },
+    { name: "How It Works", path: "/#how-it-works" },
+    { name: "Pricing", path: "/#pricing" },
   ];
 
   return (
@@ -55,7 +55,11 @@ const Navigation = () => {
             className="md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {isMenuOpen ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
           </Button>
         </div>
 
@@ -74,8 +78,12 @@ const Navigation = () => {
                 </a>
               ))}
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="ghost" className="justify-start">Sign In</Button>
-                <Button variant="gradient" className="justify-start">Get Started</Button>
+                <Button variant="ghost" className="justify-start">
+                  Sign In
+                </Button>
+                <Button variant="gradient" className="justify-start">
+                  Get Started
+                </Button>
               </div>
             </div>
           </div>
