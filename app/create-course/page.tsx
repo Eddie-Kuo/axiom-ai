@@ -71,8 +71,8 @@ export default function CreateCoursePage() {
               </h1>
 
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Tell our AI what you're interested in learning, and we'll create
-                a comprehensive course roadmap just for you.
+                Tell our AI what you&apos;re interested in learning, and
+                we&apos;ll create a comprehensive course roadmap just for you.
               </p>
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function CreateCoursePage() {
               </CardTitle>
               <CardDescription>
                 Enter the subject you want to master. Be as specific or general
-                as you'd like.
+                as you&apos;d like.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">

@@ -2,9 +2,23 @@
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Play, CheckCircle, Clock, FileText, HelpCircle, ArrowRight } from "lucide-react";
+import {
+  ArrowLeft,
+  Play,
+  CheckCircle,
+  Clock,
+  FileText,
+  HelpCircle,
+  ArrowRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -15,27 +29,29 @@ export default function ChapterViewPage() {
   const { courseId, unitId, chapterId } = useParams();
   const [showQuiz, setShowQuiz] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: number }>({});
+  const [selectedAnswers, setSelectedAnswers] = useState<{
+    [key: number]: number;
+  }>({});
   const [showResults, setShowResults] = useState(false);
-  
+
   const course = mockCourse;
-  const unit = course.units.find(u => u.id === unitId);
-  const chapter = unit?.chapters.find(c => c.id === chapterId);
+  const unit = course.units.find((u) => u.id === unitId);
+  const chapter = unit?.chapters.find((c) => c.id === chapterId);
 
   if (!unit || !chapter) {
     return <div>Chapter not found</div>;
   }
 
   const handleAnswerSelect = (questionIndex: number, answerIndex: number) => {
-    setSelectedAnswers(prev => ({
+    setSelectedAnswers((prev) => ({
       ...prev,
-      [questionIndex]: answerIndex
+      [questionIndex]: answerIndex,
     }));
   };
 
   const handleNextQuestion = () => {
     if (currentQuestion < chapter.quiz.length - 1) {
-      setCurrentQuestion(prev => prev + 1);
+      setCurrentQuestion((prev) => prev + 1);
     } else {
       setShowResults(true);
     }
@@ -54,7 +70,7 @@ export default function ChapterViewPage() {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
+
       <div className="pt-24 pb-16 px-4">
         <div className="container mx-auto max-w-4xl">
           <div className="mb-8">
@@ -73,7 +89,7 @@ export default function ChapterViewPage() {
               <span>•</span>
               <span>{unit.title}</span>
             </div>
-            
+
             <div className="flex items-center gap-3 mb-4">
               <Badge variant="outline">
                 <Clock className="w-3 h-3 mr-1" />
@@ -86,7 +102,7 @@ export default function ChapterViewPage() {
                 </Badge>
               )}
             </div>
-            
+
             <h1 className="text-4xl font-bold mb-4">{chapter.title}</h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
               {chapter.description}
@@ -140,17 +156,22 @@ export default function ChapterViewPage() {
                     Test Your Knowledge
                   </CardTitle>
                   <CardDescription>
-                    Ready to test what you've learned? Take the quiz to reinforce your understanding.
+                    Ready to test what you&apos;ve learned? Take the quiz to
+                    reinforce your understanding.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-muted-foreground">
-                        {chapter.quiz.length} questions • Estimated time: 5 minutes
+                        {chapter.quiz.length} questions • Estimated time: 5
+                        minutes
                       </p>
                     </div>
-                    <Button onClick={() => setShowQuiz(true)} variant="gradient">
+                    <Button
+                      onClick={() => setShowQuiz(true)}
+                      variant="gradient"
+                    >
                       Start Quiz
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
@@ -164,7 +185,10 @@ export default function ChapterViewPage() {
                 <Card className="shadow-lg border-0 bg-card/50 backdrop-blur-sm">
                   <CardHeader>
                     <div className="flex items-center justify-between">
-                      <CardTitle>Quiz Question {currentQuestion + 1} of {chapter.quiz.length}</CardTitle>
+                      <CardTitle>
+                        Quiz Question {currentQuestion + 1} of{" "}
+                        {chapter.quiz.length}
+                      </CardTitle>
                       <Badge variant="outline">
                         Question {currentQuestion + 1}/{chapter.quiz.length}
                       </Badge>
@@ -174,35 +198,54 @@ export default function ChapterViewPage() {
                     <h3 className="text-xl font-semibold">
                       {chapter.quiz[currentQuestion].question}
                     </h3>
-                    
+
                     <RadioGroup
                       value={selectedAnswers[currentQuestion]?.toString()}
-                      onValueChange={(value) => handleAnswerSelect(currentQuestion, parseInt(value))}
+                      onValueChange={(value) =>
+                        handleAnswerSelect(currentQuestion, parseInt(value))
+                      }
                     >
-                      {chapter.quiz[currentQuestion].options.map((option, index) => (
-                        <div key={index} className="flex items-center space-x-2 p-4 border border-border rounded-lg hover:bg-secondary/30 transition-colors">
-                          <RadioGroupItem value={index.toString()} id={`option-${index}`} />
-                          <Label htmlFor={`option-${index}`} className="flex-1 cursor-pointer">
-                            {option}
-                          </Label>
-                        </div>
-                      ))}
+                      {chapter.quiz[currentQuestion].options.map(
+                        (option, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center space-x-2 p-4 border border-border rounded-lg hover:bg-secondary/30 transition-colors"
+                          >
+                            <RadioGroupItem
+                              value={index.toString()}
+                              id={`option-${index}`}
+                            />
+                            <Label
+                              htmlFor={`option-${index}`}
+                              className="flex-1 cursor-pointer"
+                            >
+                              {option}
+                            </Label>
+                          </div>
+                        )
+                      )}
                     </RadioGroup>
-                    
+
                     <div className="flex justify-between">
                       <Button
                         variant="outline"
-                        onClick={() => setCurrentQuestion(prev => Math.max(0, prev - 1))}
+                        onClick={() =>
+                          setCurrentQuestion((prev) => Math.max(0, prev - 1))
+                        }
                         disabled={currentQuestion === 0}
                       >
                         Previous
                       </Button>
                       <Button
                         onClick={handleNextQuestion}
-                        disabled={selectedAnswers[currentQuestion] === undefined}
+                        disabled={
+                          selectedAnswers[currentQuestion] === undefined
+                        }
                         variant="gradient"
                       >
-                        {currentQuestion === chapter.quiz.length - 1 ? "Finish Quiz" : "Next Question"}
+                        {currentQuestion === chapter.quiz.length - 1
+                          ? "Finish Quiz"
+                          : "Next Question"}
                       </Button>
                     </div>
                   </CardContent>
@@ -215,21 +258,33 @@ export default function ChapterViewPage() {
                   <CardContent className="space-y-6">
                     <div className="text-center">
                       <div className="w-24 h-24 bg-gradient-to-br from-ai-purple to-ai-blue rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span className="text-3xl font-bold text-white">{calculateScore()}%</span>
+                        <span className="text-3xl font-bold text-white">
+                          {calculateScore()}%
+                        </span>
                       </div>
                       <h3 className="text-2xl font-semibold mb-2">
-                        {calculateScore() >= 70 ? "Great job!" : "Keep practicing!"}
+                        {calculateScore() >= 70
+                          ? "Great job!"
+                          : "Keep practicing!"}
                       </h3>
                       <p className="text-muted-foreground">
                         You scored {calculateScore()}% on this quiz
                       </p>
                     </div>
-                    
+
                     <div className="space-y-4">
                       {chapter.quiz.map((question, index) => {
-                        const isCorrect = selectedAnswers[index] === question.correctAnswer;
+                        const isCorrect =
+                          selectedAnswers[index] === question.correctAnswer;
                         return (
-                          <div key={index} className={`p-4 rounded-lg border ${isCorrect ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50'}`}>
+                          <div
+                            key={index}
+                            className={`p-4 rounded-lg border ${
+                              isCorrect
+                                ? "border-green-200 bg-green-50"
+                                : "border-red-200 bg-red-50"
+                            }`}
+                          >
                             <div className="flex items-center gap-2 mb-2">
                               {isCorrect ? (
                                 <CheckCircle className="w-5 h-5 text-green-500" />
@@ -238,35 +293,40 @@ export default function ChapterViewPage() {
                                   <span className="text-white text-xs">✕</span>
                                 </div>
                               )}
-                              <span className="font-medium">Question {index + 1}</span>
+                              <span className="font-medium">
+                                Question {index + 1}
+                              </span>
                             </div>
                             <p className="text-sm mb-2">{question.question}</p>
                             <p className="text-sm text-muted-foreground">
-                              <strong>Correct answer:</strong> {question.options[question.correctAnswer]}
+                              <strong>Correct answer:</strong>{" "}
+                              {question.options[question.correctAnswer]}
                             </p>
                             {!isCorrect && (
                               <p className="text-sm mt-2 text-muted-foreground">
-                                <strong>Explanation:</strong> {question.explanation}
+                                <strong>Explanation:</strong>{" "}
+                                {question.explanation}
                               </p>
                             )}
                           </div>
                         );
                       })}
                     </div>
-                    
+
                     <div className="flex gap-4 justify-center">
-                      <Button variant="outline" onClick={() => {
-                        setShowQuiz(false);
-                        setShowResults(false);
-                        setCurrentQuestion(0);
-                        setSelectedAnswers({});
-                      }}>
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          setShowQuiz(false);
+                          setShowResults(false);
+                          setCurrentQuestion(0);
+                          setSelectedAnswers({});
+                        }}
+                      >
                         Review Content
                       </Button>
                       <Link href={`/course/${courseId}/unit/${unitId}`}>
-                        <Button variant="gradient">
-                          Back to Unit
-                        </Button>
+                        <Button variant="gradient">Back to Unit</Button>
                       </Link>
                     </div>
                   </CardContent>

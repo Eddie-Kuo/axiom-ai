@@ -17,6 +17,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HomePage() {
   const features = [
@@ -129,12 +130,16 @@ export default function HomePage() {
             </div>
 
             <div className="relative max-w-4xl mx-auto">
-              <img
-                src="/hero-image.jpg"
-                alt="AI Learning Platform"
-                className="rounded-2xl shadow-2xl border border-border"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent rounded-2xl"></div>
+              <div className="relative aspect-video overflow-hidden rounded-2xl shadow-2xl border border-border/50">
+                <Image
+                  src="/hero-image.jpg"
+                  alt="AI Learning Platform"
+                  className="object-cover w-full h-full"
+                  fill={true}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-background/10 rounded-2xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-ai-purple/5 to-ai-blue/5 rounded-2xl"></div>
+              </div>
             </div>
           </div>
         </div>
