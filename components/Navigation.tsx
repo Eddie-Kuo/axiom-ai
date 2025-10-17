@@ -4,18 +4,10 @@ import { Brain, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import {
-  SignedOut,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  UserButton,
-} from "@clerk/nextjs";
+import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const pathname = usePathname();
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -57,7 +49,18 @@ const Navigation = () => {
               </SignInButton>
             </SignedOut>
             <SignedIn>
-              <UserButton />
+              <div className="flex gap-5 items-center">
+                <Button variant="gradient" asChild>
+                  <Link href="/dashboard">Dashboard</Link>
+                </Button>
+                <UserButton
+                  appearance={{
+                    elements: {
+                      avatarBox: "w-10 h-10",
+                    },
+                  }}
+                />
+              </div>
             </SignedIn>
           </div>
 
@@ -97,7 +100,13 @@ const Navigation = () => {
                   </SignInButton>
                 </SignedOut>
                 <SignedIn>
-                  <UserButton />
+                  <UserButton
+                    appearance={{
+                      elements: {
+                        avatarBox: "w-10 h-10",
+                      },
+                    }}
+                  />
                 </SignedIn>
               </div>
             </div>
