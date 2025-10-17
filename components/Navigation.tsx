@@ -4,11 +4,10 @@ import { Brain, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { SignedOut, SignInButton, SignedIn, UserButton } from "@clerk/nextjs";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const pathname = usePathname();
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -44,8 +43,25 @@ const Navigation = () => {
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost">Sign In</Button>
-            <Button variant="gradient">Get Started</Button>
+            <SignedOut>
+              <SignInButton>
+                <Button variant="gradient">Sign In</Button>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <div className="flex gap-5 items-center">
+                <Button variant="gradient" asChild>
+                  <Link href="/dashboard">Dashboard</Link>
+                </Button>
+                <UserButton
+                  appearance={{
+                    elements: {
+                      avatarBox: "w-10 h-10",
+                    },
+                  }}
+                />
+              </div>
+            </SignedIn>
           </div>
 
           {/* Mobile menu button */}
@@ -78,12 +94,20 @@ const Navigation = () => {
                 </a>
               ))}
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="ghost" className="justify-start">
-                  Sign In
-                </Button>
-                <Button variant="gradient" className="justify-start">
-                  Get Started
-                </Button>
+                <SignedOut>
+                  <SignInButton>
+                    <Button variant="gradient">Sign In</Button>
+                  </SignInButton>
+                </SignedOut>
+                <SignedIn>
+                  <UserButton
+                    appearance={{
+                      elements: {
+                        avatarBox: "w-10 h-10",
+                      },
+                    }}
+                  />
+                </SignedIn>
               </div>
             </div>
           </div>
